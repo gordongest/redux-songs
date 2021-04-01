@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { selectSong } from '../actions'
+import { selectSong } from '../actions';
 
 class SongList extends Component {
-  mapList() {
-    return this.props.songs.map(song => {
+  mapList(songs) {
+    return songs.map((song) => {
       return (
         <div className="item" key={song.title}>
           <div className="right floated content">
@@ -19,28 +19,22 @@ class SongList extends Component {
             <p>{song.title}</p>
           </div>
         </div>
-      )
-    })
+      );
+    });
   }
 
   render() {
-    console.log(this.props)
-    return (
-      <div className="ui divided list">
-        {this.mapList()}
-      </div>
-    );
+    const { songs } = this.props;
+    return <div className="ui divided list">{this.mapList(songs)}</div>;
   }
 }
 
-/* take the data held in store("state") and map it to a props object */
+/* take the data held in the store ("state") and map it to a props object */
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     songs: state.songs,
-    selectedSong: state.selectedSong
-  }
-}
+  };
+};
 
 /* connect returns a function, so in order to pass state through to the component it is
 required to pass the SongList component as the second function call argument to connect */
